@@ -65,3 +65,5 @@ aws route53 change-resource-record-sets \
 '
 
 done
+
+echo "record updated for $INSTANCE"
