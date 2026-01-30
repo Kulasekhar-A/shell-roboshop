@@ -8,6 +8,8 @@ G="\e[32m"
 Y="\e[33m"
 N="\e[0m"
 
+SCRIPT_DIR="$PWD"
+
 USERID=$(id -u)
 
 if [ $USERID -ne 0 ]; then
@@ -41,15 +43,20 @@ VALIDATE $? "Enable nginx"
 systemctl start nginx &>> $LOGS_FILE
 VALIDATE $? "Starting nginx"
 
-
-curl -o /tmp/frontend.zip https://roboshop-artifacts.s3.amazonaws.com/frontend-v3.zip
+curl -o /tmp/frontend.zip https://roboshop-artifacts.s3.amazonaws.com/frontend-v3.zip &>> $LOGS_FILE
 VALIDATE $? "Download the code"
 
-cd /usr/share/nginx/html 
+cd /usr/share/nginx/html &>> $LOGS_FILE
 VALIDATE $? "Moving the /usr/share/nginx/html directory"
 
 rm -rf /usr/share/nginx/html/* &>> $LOGS_FILE
 VALIDATE $? "Remove the default content inside web server"
 
-unzip /tmp/frontend.zip
+unzip /tmp/frontend.zip &>> $LOGS_FILE
 VALIDATE $? "Unzip the code"
+
+cp $SCRIPT_DIR/nginx.conf /etc/nginx/nginx.conf &>> $LOGS_FILE
+VALIDATE $? "copying nginx configure" 
+
+systemctl restart nginx &>> $LOGS_FILE
+VALIDATE $? "Restart the Nginx"
