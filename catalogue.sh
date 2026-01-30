@@ -8,6 +8,9 @@ G="\e[32m"
 Y="\e[33m"
 N="\e[0m"
 
+SCRIPT_DIR="$PWD"
+MONGODB_HOST="mongodb.annuru.online"
+
 USERID=$(id -u)
 
 if [ $USERID -ne 0 ]; then
@@ -50,3 +53,43 @@ VALIDATE $? "App directory"
 curl -o /tmp/catalogue.zip https://roboshop-artifacts.s3.amazonaws.com/catalogue-v3.zip &>> $LOGS_FILE
 VALIDATE $? "Download the code"
 
+cd /app &>> $LOGS_FILE
+VALIDATE $? "Moving to app directory"
+
+rm -rf /app/*
+VALIDATE $? "Removing existing code"
+
+unzip /tmp/catalogue.zip &>> $LOGS_FILE
+VALIDATE $? "Unzip the code"
+
+npm install &>> $LOGS_FILE
+VALIDATE $? "Installing NPM"
+
+cp $SCRIPT_DIR/catalogue.service /etc/systemd/system/catalogue.service
+VALIDATE $? "Copying catalogue service"
+
+systemctl daemon-reload &>> $LOGS_FILE
+VALIDATE $? "Reload the service"
+
+systemctl enable catalogue &>> $LOGS_FILE
+VALIDATE $? "Enable the catalogue service"
+
+systemctl start catalogue &>> $LOGS_FILE
+VALIDATE $? "Start the catalogue service"
+
+cp $SCRIPT_DIR/mongo.repo /etc/yum.repos.d/mongo.repo
+VALIDATE $? "copying mongodb repo"
+
+dnf install mongodb-mongosh -y &>> $LOGS_FILE
+VALIDATE $? "Install mongodb"
+
+INDEX=$(mongosh --host $MONGODB_HOST --quiet --eval 'db.getMongo().getDBNames().indexOf("catalogue")' )
+if [ $INDEX -le 0 ]; then
+   mongosh --host $MONGODB_HOST </app/db/master-data.js
+   VALIDATE $? "Loading products"
+else
+   echo -e "Products already loaded ... $Y skipping $N"
+fi
+
+systemctl restart cataloge &>> $LOGS_FILE
+VALIDATE $? " Restart the catalogue"
