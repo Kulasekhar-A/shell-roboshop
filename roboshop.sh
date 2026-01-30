@@ -19,7 +19,7 @@ INSTANCE_ID=$(aws ec2 run-instances \
     )
 
 if [ $INSTANCE == "frontend" ]; then
-   IP=$(aws ec2 escribe-instances \
+   IP=$(aws ec2 describe-instances \
     --instance-ids $INSTANCE_ID \
     --query 'Reservations[].Instances[].PublicIpAddress' \
     --output text
