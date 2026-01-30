@@ -30,4 +30,6 @@ else
 
 fi
 
+echo "IP Address : $IP"
+
 done
