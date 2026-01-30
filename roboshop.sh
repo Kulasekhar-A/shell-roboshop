@@ -14,7 +14,7 @@ INSTANCE_ID=$(aws ec2 run-instances \
     --instance-type t3.micro \
     --security-group-ids $SG_ID \
     --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=$INSTANCE}]" \
-    --query 'Instances[0].InstanceId' \
+    --query 'Instances[0].InstanceId' 
     --output text
     )
 
