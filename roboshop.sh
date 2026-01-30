@@ -14,12 +14,12 @@ INSTANCE_ID=$(aws ec2 run-instances \
     --instance-type t3.micro \
     --security-group-ids $SG_ID \
     --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=$INSTANCE}]" \
-    --query 'Instances[0].InstanceId' 
+    --query 'Instances[0].InstanceId' \
     --output text
     )
 
 if [ $INSTANCE == "frontend" ]; then
-   IP=$(aws ec2 escribe-instances 
+   IP=$(aws ec2 escribe-instances \
     --instance-ids $INSTANCE_ID \
     --query 'Reservations[].Instances[].PublicIpAddress' \
     --output text
