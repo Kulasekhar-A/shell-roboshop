@@ -75,7 +75,7 @@ VALIDATE $? "Enable the shipping service"
 systemctl start shipping &>> $LOGS_FILE
 VALIDATE $? "Start the shipping service"
 
-dnf install mysql -y  &>> $LOGS_FILE
+dnf install mysql -y  &>> $LOGS_FIL
 VALIDATE $? "Install mysql"
 
 SCHEMAS=("schema" "app-user" "master-data")
