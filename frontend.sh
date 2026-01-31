@@ -55,7 +55,7 @@ VALIDATE $? "Remove the default content inside web server"
 unzip /tmp/frontend.zip &>> $LOGS_FILE
 VALIDATE $? "Unzip the code"
 
-cp $SCRIPT_DIR/nginx.conf /etc/nginx/nginx.conf &>> $LOGS_FIL
+cp $SCRIPT_DIR/nginx.conf /etc/nginx/nginx.conf &>> $LOGS_FILE
 VALIDATE $? "copying nginx configure" 
 
 systemctl restart nginx &>> $LOGS_FILE
