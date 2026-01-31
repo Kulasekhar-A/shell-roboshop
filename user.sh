@@ -34,7 +34,7 @@ VALIDATE $? "Disable NodeJS default version"
 dnf module enable nodejs:20 -y &>> $LOGS_FILE
 VALIDATE $? "Enable NodeJS current version"
 
-dnf install nodejs -y &>> $LOGS_FILE
+dnf install nodejs -y &>> $LOGS_FIL
 VALIDATE $? "Installing NodeJS ..."
 
 id roboshop &>> $LOGS_FILE
