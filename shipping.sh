@@ -78,7 +78,7 @@ dnf install mysql -y  &>> $LOGS_FILE
 VALIDATE $? "Install mysql"
 
 INDEEX=$(mysql -h $MYSQL_HOST -uroot -pRoboshop@1 -e "USE cities;" )
-if [ $INDEX -le 0 ]; then
+if [ $INDEX -ne 0 ]; then
   echo "Database not found. Loading schema..."
 
   mysql -h $MYSQL_HOST -uroot -pRoboshop@1 < /app/db/schema.sql 
