@@ -79,7 +79,6 @@ VALIDATE $? "Install mysql"
 
 mysql -h $MYSQL_HOST -uroot -pRoboshop@1 -e "USE cities;" &>> $LOGS_FILE
 if [ $? -ne 0 ]; then
-  echo "Loading shipping schema"
   mysql -h $MYSQL_HOST -uroot -pRoboshop@1 < /app/db/schema.sql &>> $LOGS_FILE
   mysql -h $MYSQL_HOST -uroot -pRoboshop@1 < /app/db/app-user.sql &>> $LOGS_FILE
   mysql -h $MYSQL_HOST -uroot -pRoboshop@1 < /app/db/master-data.sql &>> $LOGS_FILE
