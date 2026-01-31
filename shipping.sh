@@ -63,7 +63,7 @@ mv target/shipping-1.0.jar shipping.jar &>> $LOGS_FILE
 VALIDATE $? "Renaming jar file"
 
 cp $SCRIPT_DIR/shipping.service /etc/systemd/system/shipping.service &>> $LOGS_FILE
-VALIDATE $? "Copying cart service"
+VALIDATE $? "Copying shipping service"
 
 systemctl daemon-reload &>> $LOGS_FILE
 VALIDATE $? "Reload the service"
