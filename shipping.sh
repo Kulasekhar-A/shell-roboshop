@@ -82,7 +82,7 @@ SCHEMAS=("schema" "app-user" "master-data")
 for schema in "${SCHEMAS[@]}";
 do
     echo -e "Loading schema: $Y $schema $N"
-    mysql-h MYSQL_HOST -uroot -pRoboShop@1 < /app/db/${schema}.sql
+    mysql-h MYSQL_HOST -uroot -pRoboShop@1 </app/db/${schema}.sql
     VALIDATE $? "loading ${schema}.sql"
 done
 
