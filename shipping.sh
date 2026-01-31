@@ -58,3 +58,5 @@ VALIDATE $? "Unzip the code"
 mvn clean package &>> $LOGS_FILE
 VALIDATE $? "Clean the default package"
 
+mv target/shipping-1.0.jar shipping.jar &>> $LOGS_FILE
+VALIDATE $? "Renaming jar file"
