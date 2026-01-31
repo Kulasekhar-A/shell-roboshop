@@ -35,5 +35,7 @@ VALIDATE $?  "Enable mysqld"
 systemctl start mysqld &>> $LOGS_FILE
 VALIDATE $? "Start mysqld"
 
-mysql_secure_installation --set-root-pass RoboShop@1 &>> $LOGS_FILE
-VALIDATE $? "set mysql root password"
+mysql -uroot -pRoboShop@1 -e "show databases;" &>> $LOGS_FILE
+if [ $? -ne 0 ]; then
+  mysql_secure_installation --set-root-pass RoboShop@1 &>> $LOGS_FILE
+fi
