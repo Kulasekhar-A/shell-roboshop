@@ -8,7 +8,7 @@ G="\e[32m"
 Y="\e[33m"
 N="\e[0m"
 
-SCRIP_DIR=$PWD
+SCRIPT_DIR=$PWD
 MYSQL_HOST=mysql.annuru.online
 
 USERID=$(id -u)
