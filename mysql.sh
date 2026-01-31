@@ -38,4 +38,5 @@ VALIDATE $? "Start mysqld"
 mysql -uroot -pRoboShop@1 -e "show databases;" &>> $LOGS_FILE
 if [ $? -ne 0 ]; then
   mysql_secure_installation --set-root-pass RoboShop@1 &>> $LOGS_FILE
+  VALIDATE $? "set root password"
 fi
