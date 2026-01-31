@@ -10,7 +10,6 @@ N="\e[0m"
 
 SCRIPT_DIR=$PWD
 MYSQL_HOST=mysql.annuru.online
-MYSQL_ROOT_PASSWORD="RoboShop@1"
 
 
 USERID=$(id -u)
@@ -76,21 +75,17 @@ VALIDATE $? "Enable the shipping service"
 systemctl start shipping &>> $LOGS_FILE
 VALIDATE $? "Start the shipping service"
 
-dnf install mysql -y  &>> $LOGS_FILE
+dnf install mysql -y  &>> $LOGS_FIL
 VALIDATE $? "Install mysql"
 
-mysql -h $MYSQL_HOST -uroot -p $MYSQL_ROOT_PASSWORD -e "USE cities;" &>> $LOGS_FILE
-STATUS=$?
+SCHEMAS=("schema" "app-user" "master-data")
+for schema in "${SCHEMAS[@]}";
+do
+    echo -e "Loading schema: $Y $schema $N"
+    mysql-h MYSQL_HOST -uroot -pRoboShop@1 < /app/db/${schema}.sql
+    VALIDATE $? "loading ${schema}.sql"
+done
 
-if [ "$STATUS" -ne 0 ]; then
-  echo "Database not found. Loading schema..."
-
-  mysql -h $MYSQL_HOST -uroot -pRoboshop@1 < /app/db/schema.sql &>> $LOGS_FILE
-  mysql -h $MYSQL_HOST -uroot -pRoboshop@1 < /app/db/app-user.sql &>> $LOGS_FILE
-  mysql -h $MYSQL_HOST -uroot -pRoboshop@1 < /app/db/master-data.sql &>> $LOGS_FILE
-else
-  echo -e "Database already exists. $Y Skipping schema load $N"
-fi
 
 systemctl restart shipping &>> $LOGS_FILE
 VALIDATE $? "Restart the shipping service"
