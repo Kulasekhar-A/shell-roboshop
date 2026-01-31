@@ -35,7 +35,7 @@ VALIDATE $? "Enable redis current version"
 dnf install redis -y &>> $LOGS_FILE
 VALIDATE $? "Installing Redis ..."
 
-sed -i 's/127.0.0.1/0.0.0.0/g' /etc/redis/redis.conf &>> $LOGS_FIL
+sed -i 's/127.0.0.1/0.0.0.0/g' /etc/redis/redis.conf &>> $LOGS_FILE
 VALIDATE $? "Allowing remote connections"
 
 sed -i 's/yes/no/g' /etc/redis/redis.conf &>> $LOGS_FILE
