@@ -10,6 +10,8 @@ N="\e[0m"
 
 SCRIPT_DIR=$PWD
 MYSQL_HOST=mysql.annuru.online
+MYSQL_ROOT_PASSWORD="RoboShop@1"
+
 
 USERID=$(id -u)
 
@@ -77,7 +79,7 @@ VALIDATE $? "Start the shipping service"
 dnf install mysql -y  &>> $LOGS_FILE
 VALIDATE $? "Install mysql"
 
-mysql -h $MYSQL_HOST -uroot -pRoboshop@1 -e "USE cities;" &>> $LOGS_FILE
+mysql -h $MYSQL_HOST -uroot -p $MYSQL_ROOT_PASSWORD -e "USE cities;" &>> $LOGS_FILE
 STATUS=$?
 
 if [ "$STATUS" -ne 0 ]; then
