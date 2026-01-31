@@ -77,18 +77,18 @@ VALIDATE $? "Start the shipping service"
 dnf install mysql -y  &>> $LOGS_FILE
 VALIDATE $? "Install mysql"
 
-INDEX=$(mysql -h $MYSQL_HOST -uroot -pRoboshop@1 -e "USE cities;" )
-if [ $INDEX -ne 0 ]; then
+mysql -h $MYSQL_HOST -uroot -pRoboshop@1 -e "USE cities;" &>> $LOGS_FILE
+STATUS=$?
+
+if [ "$STATUS" -ne 0 ]; then
   echo "Database not found. Loading schema..."
 
-  mysql -h $MYSQL_HOST -uroot -pRoboshop@1 < /app/db/schema.sql 
-  mysql -h $MYSQL_HOST -uroot -pRoboshop@1 < /app/db/app-user.sql 
-  mysql -h $MYSQL_HOST -uroot -pRoboshop@1 < /app/db/master-data.sql 
-
+  mysql -h $MYSQL_HOST -uroot -pRoboshop@1 < /app/db/schema.sql &>> $LOGS_FILE
+  mysql -h $MYSQL_HOST -uroot -pRoboshop@1 < /app/db/app-user.sql &>> $LOGS_FILE
+  mysql -h $MYSQL_HOST -uroot -pRoboshop@1 < /app/db/master-data.sql &>> $LOGS_FILE
 else
   echo -e "Database already exists. $Y Skipping schema load $N"
 fi
-
 
 systemctl restart shipping &>> $LOGS_FILE
 VALIDATE $? "Restart the shipping service"
