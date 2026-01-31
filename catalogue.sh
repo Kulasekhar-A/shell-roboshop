@@ -59,7 +59,7 @@ VALIDATE $? "Moving to app directory"
 rm -rf /app/*
 VALIDATE $? "Removing existing code"
 
-unzip /tmp/catalogue.zip &>> $LOGS_FILE
+unzip /tmp/catalogue.zip &>> $LOGS_FIL
 VALIDATE $? "Unzip the code"
 
 npm install &>> $LOGS_FILE
