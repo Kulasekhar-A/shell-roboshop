@@ -77,7 +77,7 @@ VALIDATE $? "Start the shipping service"
 dnf install mysql -y  &>> $LOGS_FILE
 VALIDATE $? "Install mysql"
 
-INDEEX=$(mysql -h $MYSQL_HOST -uroot -pRoboshop@1 -e "USE cities;" )
+INDEX=$(mysql -h $MYSQL_HOST -uroot -pRoboshop@1 -e "USE cities;" )
 if [ $INDEX -ne 0 ]; then
   echo "Database not found. Loading schema..."
 
