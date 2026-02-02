@@ -13,7 +13,7 @@ SCRIPT_DIR="$PWD"
 USERID=$(id -u)
 
 if [ $USERID -ne 0 ]; then
-  echo -e "$R Please run this script with root user access $N" | tee -a $LOGS_FIL
+  echo -e "$R Please run this script with root user access $N" | tee -a $LOGS_FILE
   exit 1
 fi
 
