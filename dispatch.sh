@@ -65,7 +65,7 @@ VALIDATE $? "Get the dependences"
 go build &>> $LOGS_FILE
 VALIDATE $? "Build it"
 
-cp $SCRIPT_DIR/rabbitmq.service /etc/systemd/system/rabbitmq.service
+cp $SCRIPT_DIR/rabbitmq.service /etc/systemd/system/dispatch.service
 VALIDATE $? "Copying catalogue service"
 
 systemctl daemon-reload &>> $LOGS_FILE
