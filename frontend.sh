@@ -43,7 +43,7 @@ VALIDATE $? "Enable nginx"
 systemctl start nginx &>> $LOGS_FILE
 VALIDATE $? "Starting nginx"
 
-curl -o /tmp/frontend.zip https://roboshop-artifacts.s3.amazonaws.com/frontend-v3.zip &>> $LOGS_FILE
+curl -o /tmp/frontend.zip https://roboshop-artifacts.s3.amazonaws.com/frontend-v3.zip &>> $LOGS_FIL
 VALIDATE $? "Download the code"
 
 cd /usr/share/nginx/html &>> $LOGS_FILE
