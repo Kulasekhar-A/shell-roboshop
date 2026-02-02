@@ -40,7 +40,7 @@ VALIDATE $? "Enable the rabbitmq server"
 systemctl start rabbitmq-server &>> $LOGS_FILE
 VALIDATE $? "Start the rabbitmq server"
 
-rabbitmqctl add_user roboshop roboshop123 &>> $LOGS_FILE
+rabbitmqctl add_user roboshop roboshop12 &>> $LOGS_FILE
 VALIDATE $? "set system user"
 
 rabbitmqctl set_permissions -p / roboshop ".*" ".*" ".*" &>> $LOGS_FILE
