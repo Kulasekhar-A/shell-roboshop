@@ -78,14 +78,14 @@ VALIDATE $? "Start the shipping service"
 dnf install mysql -y  &>> $LOGS_FILE
 VALIDATE $? "Install mysql"
 
-SCHEMAS=("schema" "app-user" "master-data")
-for schema in "${SCHEMAS[@]}";
-do
-    echo -e "Loading schema: $Y $schema $N"
-    mysql -h $MYSQL_HOST -uroot -pRoboShop@1 </app/db/${schema}.sql
-    VALIDATE $? "loading ${schema}.sql"
-done
-
-
+mysql -h $MYSQL_HOST -uroot -pRoboShop@1 -e 'use cities'
+if [ $? -ne 0 ]; then
+  mysql -h $MYSQL_HOST -uroot -pRoboShop@1 < /app/db/schema.sql
+  mysql -h $MYSQL_HOST -uroot -pRoboShop@1 < /app/db/app-user.sql 
+  mysql -h $MYSQL_HOST -uroot -pRoboShop@1 < /app/db/master-data.sql
+  VALIDATE $? "Loaded data into mysql"
+else
+  echo -e "data is already loaded ...$Y skipping $N"
+fi
 systemctl restart shipping &>> $LOGS_FILE
 VALIDATE $? "Restart the shipping service"
