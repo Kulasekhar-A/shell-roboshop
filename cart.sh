@@ -49,7 +49,7 @@ fi
 mkdir -p /app &>> $LOGS_FILE
 VALIDATE $? "App directory"
 
-curl -L -o /tmp/cart.zip https://roboshop-artifacts.s3.amazonaws.com/cart-v3.zip &>> $LOGS_FIL
+curl -L -o /tmp/cart.zip https://roboshop-artifacts.s3.amazonaws.com/cart-v3.zip &>> $LOGS_FILE
 VALIDATE $? "Download the code"
 
 cd /app &>> $LOGS_FILE
