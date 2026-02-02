@@ -44,7 +44,7 @@ fi
 mkdir -p /app &>> $LOGS_FILE
 VALIDATE $? "App directory"
 
-curl -L -o /tmp/payment.zip https://roboshop-artifacts.s3.amazonaws.com/payment-v3.zip  &>> $LOGS_FILE
+curl -L -o /tmp/payment.zip https://roboshop-artifacts.s3.amazonaws.com/payment-v3.zip  &>> $LOGS_FIL
 VALIDATE $? "Download the code"
 
 cd /app &>> $LOGS_FILE
