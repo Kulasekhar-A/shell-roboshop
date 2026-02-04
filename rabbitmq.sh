@@ -43,7 +43,7 @@ VALIDATE $? "Start the rabbitmq server"
 id roboshop &>> $LOGS_FILE
 if [ $? -ne 0 ]; then
     rabbitmqctl add_user roboshop roboshop123 &>> $LOGS_FILE
-    VALIDATE $> "Creating system user"
+    VALIDATE $? "Creating system user"
 else
    echo -e "Already exist ... $Y Skipping it $N"
 
